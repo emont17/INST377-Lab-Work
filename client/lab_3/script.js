@@ -23,12 +23,17 @@ function updateSlidePosition() {
     slide.classList.remove('visible');
     slide.classList.add('hidden');
   });
-
+  console.log(slidePosition);
   slides[slidePosition].classList.add('visible');
-
 }
 
 function moveToNextSlide() {
+
+  if(slidePosition === totalSlides -1)
+    slidePosition =  0;
+    else {
+      slidePosition += 1;
+    }
   /*
     add an if statement here that checks
     if you're already at the max number of slides
