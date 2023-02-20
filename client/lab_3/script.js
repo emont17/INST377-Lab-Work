@@ -23,26 +23,29 @@ function updateSlidePosition() {
     slide.classList.remove('visible');
     slide.classList.add('hidden');
   });
-  console.log(slidePosition);
+
   slides[slidePosition].classList.add('visible');
+  
 }
 
 function moveToNextSlide() {
 
   if(slidePosition === totalSlides -1)
-    slidePosition =  0;
+    slidePosition = 0;
     else {
       slidePosition += 1;
     }
-  /*
-    add an if statement here that checks
-    if you're already at the max number of slides
-    and if so, sets your slidePosition to the first index of an array
-    if not, set the slidePosition to the current position plus one
-  */
+
   updateSlidePosition(); // this is how you call a function within a function
 }
+
 function moveToPrevSlide() {
+
+  if(slidePosition === totalSlides)
+    slidePosition = 3;
+    else {
+      slidePosition -= 1;
+    }
   // add your code in here for when you click the "prev" button
   /*
     add an if statement here that checks
@@ -61,6 +64,11 @@ document.querySelector('.next') // Get the appropriate element (<button class="n
   .addEventListener('click', () => { // set an event listener on it - when it's clicked, do this callback function
     console.log('clicked next'); // let's tell the client console we made it to this point in the script
     moveToNextSlide(); // call the function above to handle this
+  });
+document.querySelector('.prev')
+  .addEventListener('click', () => {
+    console.log('clicked prev');
+    moveToPrevSlide();
   });
 
 // Paying close attention to the above queryselector, write one that fires
