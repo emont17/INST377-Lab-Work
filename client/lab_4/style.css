@@ -93,7 +93,7 @@ form {
   border: 3px dashed;
 
   /* colors */
-  background-color: #ffe08a;
+  background-color: #f19ae9;
   color: #4a4a4a;
 
   /* shapes */
@@ -311,8 +311,5 @@ form input {
       flex-direction: column;
       justify-content: center;
       align-items: center;
-    }
-    .left_section, .right_section{
-      flex-grow: 1;
     }
 }
