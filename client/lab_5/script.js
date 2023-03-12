@@ -26,8 +26,6 @@ async function mainEvent() { // the async keyword means we can make API requests
 
   let currentList = [];
 
-
-
   mainForm.addEventListener('submit', async (submitEvent) => { // async has to be declared on every function that needs to "await" something
     submitEvent.preventDefault(); // This prevents your page from going to http://localhost:3000/api even if your form still has an action set on it
     console.log('form submission'); // this is substituting for a "breakpoint"
@@ -50,6 +48,7 @@ filterButton.addEventListener('click', (event) => {
 
   console.log(newList);
 })
+}
 
 /*
   This adds an event listener that fires our main event only once our page elements have loaded
