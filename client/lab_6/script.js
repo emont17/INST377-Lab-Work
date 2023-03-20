@@ -60,9 +60,10 @@ filterButton.addEventListener('click', (event) => {
   const formProps = Object.fromEntries(formData);
 
   console.log(formProps);
-  const newList = filterList(currentList, formProps.resto);
 
+  const newList = filterList(currentList, formProps.resto);
   console.log(newList);
+  injectHTML(newList);
 })
 }
 
