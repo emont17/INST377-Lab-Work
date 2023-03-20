@@ -37,7 +37,11 @@ function filterList(list, query) {
 
 function cutRestaurantList(list) {
   console.log('fired cut list');
-  
+  const range = [...Array(15).keys()];
+  return newArray = range.map((item) => {
+    const index = getRandomIntInclusive(0, list.length -1);
+    return list[index] 
+  })
 }
 
 async function mainEvent() { // the async keyword means we can make API requests
