@@ -50,6 +50,7 @@ function getRandomIntInclusive(min, max) {
     const loadDataButton = document.querySelector('#data_load');
     const generateListButton = document.querySelector('#generate');
     const loadAnimation = document.querySelector('#data_load_animation');
+    const textField = document.querySelector('#resto')
     loadAnimation.style.display = 'none'; 
   
     let currentList = [];
@@ -95,4 +96,4 @@ function getRandomIntInclusive(min, max) {
     The use of the async keyword means we can "await" events before continuing in our scripts
     In this case, we load some data when the form has submitted
   */
-  document.addEventListener('DOMContentLoaded', async () => mainEvent()); // the async keyword means we can make API requests
+  document.addEventListener('DOMContentLoaded', async () => mainEvent()); // the async keyword means we can make API requests 
