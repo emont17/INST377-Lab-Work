@@ -53,7 +53,7 @@ function getRandomIntInclusive(min, max) {
     return carto
   }
 
-  function markerPlace() {
+  function markerPlace(array, map) {
     console.log('array for markers', array);
     map.eachLayer((layer) => {
         if (layer instanceof L.marker); {
@@ -69,18 +69,20 @@ function getRandomIntInclusive(min, max) {
 
   async function mainEvent() { // the async keyword means we can make API requests
     const mainForm = document.querySelector('.main_form'); // This class name needs to be set on your form before you can listen for an event on it
-    const filterButton = document.querySelector('#filter_button');
     const loadDataButton = document.querySelector('#data_load');
+    const clearDataButton = document.querySelector('#data_clear');
     const generateListButton = document.querySelector('#generate');
-    const loadAnimation = document.querySelector('#data_load_animation');
     const textField = document.querySelector('#resto')
+
+    const loadAnimation = document.querySelector('#data_load_animation');
     loadAnimation.style.display = 'none'; 
     generateListButton.classList.add = ('hidden');
+
     const carto = initMap();
 
     const storedData = localStorage.getItem('storedData')
     let parsedData = JSON.parse(storedData)
-    if(parsedData?.length > 0){
+    if (parsedData?.length > 0) {
         generateListButton.classList.remove('hidden')
     }
 
@@ -93,29 +95,16 @@ function getRandomIntInclusive(min, max) {
   
       const results = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
   
-      storedList = await results.json();
+      const storedList = await results.json();
       localStorage.setItem('storedData', JSON.stringify(storedList));
       parsedData = storedList;
-      if (parsedData.length > 0) {
+      if (storedList?.length > 0) {
         generateListButton.classList.remove('hidden');
     }
       loadAnimation.style.display = 'none';
       //console.table(storedList);
     });
   
-  
-    filterButton.addEventListener('click', (event) => {
-      console.log('clicked filterButton');
-  
-      const formData = new FormData(mainForm);
-      const formProps = Object.fromEntries(formData);
-  
-      console.log(formProps);
-  
-      const newList = filterList(currentList, formProps.resto);
-      console.log(newList);
-      injectHTML(newList);
-    })
   
     generateListButton.addEventListener('click', (event) => {
       console.log('generate new list');
@@ -131,6 +120,12 @@ function getRandomIntInclusive(min, max) {
         console.log(newList);
         injectHTML(newList);
         markerPlace(newList, carto);
+    })
+
+    clearDataButton,addEventListener("click", (event)=> {
+        console.log('clear browser data');
+        localStorage.clear();
+        console.log('localStorage Check', localStorage.getItem("storedData"));
     })
   
   }
