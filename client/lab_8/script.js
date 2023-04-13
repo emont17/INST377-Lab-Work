@@ -76,8 +76,14 @@ function getRandomIntInclusive(min, max) {
     const textField = document.querySelector('#resto')
     loadAnimation.style.display = 'none'; 
     generateListButton.classList.add = ('hidden');
+    const carto = initMap();
 
-    let storedList = []; 
+    const storedData = localStorage.getItem('storedData')
+    let parsedData = JSON.parse(storedData)
+    if(parsedData?.length > 0){
+        generateListButton.classList.remove('hidden')
+    }
+
     let currentList = [];
   
     loadDataButton.addEventListener('click', async (submitEvent) => { // async has to be declared on every function that needs to "await" something
@@ -88,11 +94,13 @@ function getRandomIntInclusive(min, max) {
       const results = await fetch('https://data.princegeorgescountymd.gov/resource/umjn-t2iz.json');
   
       storedList = await results.json();
-      if (storedList.length > 0) {
+      localStorage.setItem('storedData', JSON.stringify(storedList));
+      parsedData = storedList;
+      if (parsedData.length > 0) {
         generateListButton.classList.remove('hidden');
     }
       loadAnimation.style.display = 'none';
-      console.table(storedList);
+      //console.table(storedList);
     });
   
   
@@ -111,9 +119,10 @@ function getRandomIntInclusive(min, max) {
   
     generateListButton.addEventListener('click', (event) => {
       console.log('generate new list');
-      const currentList = cutRestaurantList(storedList);
+      const currentList = cutRestaurantList(parsedData);
       console.log(currentList);
       injectHTML(currentList);
+      markerPlace(currentList, carto);
     })
     
     textField.addEventListener('input', (event) => {
@@ -121,6 +130,7 @@ function getRandomIntInclusive(min, max) {
         const newList = filterList(currentList, event.target,value);
         console.log(newList);
         injectHTML(newList);
+        markerPlace(newList, carto);
     })
   
   }
